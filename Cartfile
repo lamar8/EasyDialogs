@@ -1,5 +1,5 @@
 github "robb/Cartography"
 github "lamar8/EasyTables"
-github "marcoconti83/ClosureControls"
+github "lamar8/ClosureControls"
 github "Thomvis/BrightFutures" ~> 8.0
 
