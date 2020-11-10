@@ -51,6 +51,7 @@ public class FormWindow<ResultValue>: ModalWindow {
     init(
         inputs: [InputView],
         headerText: String? = nil,
+        minHeight: CGFloat = 300,
         confirmButtonText: String = "OK",
         validateValue: @escaping ()->(ResultValue?),
         onConfirm: @escaping (ResultValue)->(),
@@ -64,6 +65,7 @@ public class FormWindow<ResultValue>: ModalWindow {
         super.init()
         
         self.setupWindow(headerText: headerText,
+                         minHeight: minHeight,
                          confirmButtonText: confirmButtonText)
     }
     
@@ -72,6 +74,7 @@ public class FormWindow<ResultValue>: ModalWindow {
     public static func displayForm(
         inputs: [InputView],
         headerText: String? = nil,
+        minHeight: CGFloat = 300,
         confirmButtonText: String = "OK",
         validateValue: @escaping ()->(ResultValue?),
         onConfirm: @escaping (ResultValue)->(),
@@ -81,6 +84,7 @@ public class FormWindow<ResultValue>: ModalWindow {
         FormWindow(
             inputs: inputs,
             headerText: headerText,
+            minHeight: minHeight,
             confirmButtonText: confirmButtonText,
             validateValue: validateValue,
             onConfirm: onConfirm,
@@ -147,6 +151,7 @@ extension FormWindow {
     /// Creates controls and layout
     fileprivate func setupWindow(
         headerText: String?,
+        minHeight: CGFloat,
         confirmButtonText: String
         ) {
         
@@ -161,7 +166,7 @@ extension FormWindow {
         
         let header = self.createHeader(headerText: headerText)
         let footer = self.createFooter(confirmButtonText: confirmButtonText)
-        let stack = self.createStackView()
+        let stack = self.createStackView(minHeight: minHeight)
         stack.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
         [header, stack, footer].forEach { wrapperView.addSubview($0) }
@@ -179,7 +184,7 @@ extension FormWindow {
         }
     }
     
-    private func createStackView() -> NSView {
+    private func createStackView(minHeight: CGFloat) -> NSView {
         
         let stack = NSStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -202,7 +207,7 @@ extension FormWindow {
             stack.right == scroll.right
             stack.width == scroll.width
             scroll.height <= stack.height ~ NSLayoutConstraint.Priority.defaultHigh.rawValue
-            scroll.height >= 300
+            scroll.height >= minHeight
         }
         stack.addArrangedSubviewsAndExpand(self.inputs)
         return scroll

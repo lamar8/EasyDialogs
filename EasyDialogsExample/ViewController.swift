@@ -36,9 +36,9 @@ class ViewController: NSViewController {
         
         self.outputField = NSTextField.createLabel()
          
-        self.createURLSection()
-        self.createStringSection()
-        self.createTextSection()
+//        self.createURLSection()
+//        self.createStringSection()
+//        self.createTextSection()
         self.createIngredientsSection()
         let externalButton = ClosureButton(label: "External dialog") { [weak self] _ in
             self?.openInputWindow()
@@ -150,7 +150,7 @@ extension ViewController {
                 Ingredient(name: "Tomatoes", amount: 4, unit: .pieces),
                 Ingredient(name: "Olive oil", amount: 4, unit: .teaspoons),
                 Ingredient(name: "Garlic", amount: 1, unit:.pieces)
-            ],
+            ],maxRowsToDisplay: 28,
             possibleObjects: [
                 Ingredient(name: "Salt", amount: 1, unit: .teaspoons),
                 Ingredient(name: "Pepper", amount: 1, unit: .teaspoons),
@@ -186,6 +186,7 @@ extension ViewController {
                 colorInput
             ],
             headerText: "Please tell me about yourself",
+            minHeight: 300,
             validateValue: {
                 let colors = colorInput.value!.isEmpty ?
                     "no color" :
