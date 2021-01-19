@@ -57,8 +57,7 @@ open class CustomEditorInput<VALUE>: ValueInput<VALUE, NSView> {
         self.textField = textField
         
         let button = ClosureButton(closure: { _ in })
-        button.image = buttonIcon ?? Images.get(name: "pencil.png")
-        
+        button.image = buttonIcon ?? NSImage(named: "NSTouchBarComposeTemplate")
         let container = NSView()
         container.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(textField)

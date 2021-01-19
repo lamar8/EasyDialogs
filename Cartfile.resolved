@@ -1,4 +1,4 @@
 github "Thomvis/BrightFutures" "8.0.1"
-github "marcoconti83/ClosureControls" "v1.0"
-github "marcoconti83/EasyTables" "v1.0"
+github "lamar8/ClosureControls" "v1.1"
+github "lamar8/EasyTables" "v1.93"
 github "robb/Cartography" "4.0.0"

@@ -218,8 +218,9 @@ extension ObjectListInput {
             self.notifyDelegate()
         }
         self.removeButton = button
-        button.image = Images.get(name: "delete.png")
+        button.image = NSImage(named: "NSRemoveTemplate")//Images.get(name: "delete.png")
         button.toolTip = "Remove selected"
+        button.isBordered = false
         button.isEnabled = false
         return button
     }
@@ -235,8 +236,9 @@ extension ObjectListInput {
             self.notifyDelegate()
         }
         self.moveUpButton = button
-        button.image = Images.get(name: "arrow_up.png")
+        button.image = NSImage(named: "NSTouchBarGoUpTemplate")//Images.get(name: "arrow_up.png")
         button.toolTip = "Move up"
+        button.isBordered = false
         button.isEnabled = false
         return button
     }
@@ -252,8 +254,9 @@ extension ObjectListInput {
             self.notifyDelegate()
         }
         self.moveDownButton = button
-        button.image = Images.get(name: "arrow_down.png")
+        button.image = NSImage(named: "NSTouchBarGoDownTemplate")//.get(name: "arrow_down.png")
         button.toolTip = "Move down"
+        button.isBordered = false
         button.isEnabled = false
         return button
     }
@@ -275,7 +278,8 @@ extension ObjectListInput {
                 self.notifyDelegate()
             }
         }
-        button.image = Images.get(name: "zoom")
+        button.image = NSImage(named: "NSTouchBarSearchTemplate")//Images.get(name: "zoom")
+        button.isBordered = false
         button.toolTip = "Pick item from list"
         return button
     }
@@ -289,9 +293,10 @@ extension ObjectListInput {
                 else { return }
             self.showEditForm(item, closure: closure)
         }
-        button.image = Images.get(name: "pencil.png")
+        button.image = NSImage(named: "NSTouchBarComposeTemplate")//Images.get(name: "pencil.png")
         self.editButton = button
         button.isEnabled = false
+        button.isBordered = false
         button.toolTip = "Edit selected"
         return button
     }
@@ -307,7 +312,8 @@ extension ObjectListInput {
                 self.notifyDelegate()
             }
         }
-        button.image = Images.get(name: "add.png")
+        button.image = NSImage(named: "NSAddTemplate")//Images.get(name: "add.png")
+        button.isBordered = false
         button.toolTip = "Create new"
         return button
     }
