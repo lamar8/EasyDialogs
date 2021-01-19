@@ -187,6 +187,7 @@ extension ViewController {
             ],
             headerText: "Please tell me about yourself",
             minHeight: 300,
+            buttonText: ("取消","确定"),
             validateValue: {
                 let colors = colorInput.value!.isEmpty ?
                     "no color" :

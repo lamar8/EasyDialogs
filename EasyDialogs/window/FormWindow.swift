@@ -52,7 +52,7 @@ public class FormWindow<ResultValue>: ModalWindow {
         inputs: [InputView],
         headerText: String? = nil,
         minHeight: CGFloat = 300,
-        confirmButtonText: String = "OK",
+        buttonText: (String,String) = ("Cancel","OK"),
         validateValue: @escaping ()->(ResultValue?),
         onConfirm: @escaping (ResultValue)->(),
         onCancel: (()->())? = nil
@@ -66,7 +66,7 @@ public class FormWindow<ResultValue>: ModalWindow {
         
         self.setupWindow(headerText: headerText,
                          minHeight: minHeight,
-                         confirmButtonText: confirmButtonText)
+                         buttonText: buttonText)
     }
     
     /// Display the window, it won't be dismissed until the
@@ -75,7 +75,7 @@ public class FormWindow<ResultValue>: ModalWindow {
         inputs: [InputView],
         headerText: String? = nil,
         minHeight: CGFloat = 300,
-        confirmButtonText: String = "OK",
+        buttonText: (String,String) = ("Cancel","OK"),
         validateValue: @escaping ()->(ResultValue?),
         onConfirm: @escaping (ResultValue)->(),
         onCancel: (()->())? = nil
@@ -85,7 +85,7 @@ public class FormWindow<ResultValue>: ModalWindow {
             inputs: inputs,
             headerText: headerText,
             minHeight: minHeight,
-            confirmButtonText: confirmButtonText,
+            buttonText: buttonText,
             validateValue: validateValue,
             onConfirm: onConfirm,
             onCancel: onCancel
@@ -97,7 +97,7 @@ public class FormWindow<ResultValue>: ModalWindow {
     public static func displayForm(
         inputs: [InputView],
         headerText: String? = nil,
-        confirmButtonText: String = "OK",
+        buttonText: (String,String) = ("Cancel","OK"),
         validateValue: @escaping ()->(ResultValue?)
         ) -> Future<ResultValue, AbortedError>
     {
@@ -105,7 +105,7 @@ public class FormWindow<ResultValue>: ModalWindow {
             self.displayForm(
                 inputs: inputs,
                 headerText: headerText,
-                confirmButtonText: confirmButtonText,
+                buttonText: buttonText,
                 validateValue: validateValue,
                 onConfirm: { completion(.success($0)) },
                 onCancel: { completion(.failure(AbortedError())) }
@@ -152,7 +152,7 @@ extension FormWindow {
     fileprivate func setupWindow(
         headerText: String?,
         minHeight: CGFloat,
-        confirmButtonText: String
+        buttonText: (String,String)
         ) {
         
         let contentView = self.window!.contentView!
@@ -165,7 +165,7 @@ extension FormWindow {
         }
         
         let header = self.createHeader(headerText: headerText)
-        let footer = self.createFooter(confirmButtonText: confirmButtonText)
+        let footer = self.createFooter(buttonText: buttonText)
         let stack = self.createStackView(minHeight: minHeight)
         stack.setContentHuggingPriority(.defaultHigh, for: .vertical)
         
@@ -231,12 +231,12 @@ extension FormWindow {
         return header
     }
     
-    private func createFooter(confirmButtonText: String) -> NSView {
+    private func createFooter(buttonText: (String,String)) -> NSView {
         
-        let OKButton = ClosureButton(label: confirmButtonText) { [weak self] _ in
+        let OKButton = ClosureButton(label: buttonText.1) { [weak self] _ in
             self?.confirmButtonPressed()
         }
-        let cancelButton = ClosureButton(label: "Cancel") { [weak self] _ in
+        let cancelButton = ClosureButton(label: buttonText.0) { [weak self] _ in
             self?.cancelButtonPressed()
         }
         OKButton.setContentHuggingPriority(.defaultHigh, for: .vertical)
